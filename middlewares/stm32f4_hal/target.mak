@@ -14,6 +14,7 @@ CCSOURCES = stm32f4xx_hal_adc.c \
 			stm32f4xx_hal_dac_ex.c \
 			stm32f4xx_hal_dcmi.c \
 			stm32f4xx_hal_dcmi_ex.c \
+			stm32f4xx_hal_dfsdm.c \
 			stm32f4xx_hal_dma2d.c \
 			stm32f4xx_hal_dma.c \
 			stm32f4xx_hal_dma_ex.c \
@@ -37,7 +38,7 @@ CCSOURCES = stm32f4xx_hal_adc.c \
 			stm32f4xx_hal_lptim.c \
 			stm32f4xx_hal_ltdc.c \
 			stm32f4xx_hal_ltdc_ex.c \
-			stm32f4xx_hal_msp_template.c \
+			stm32f4xx_hal_mmc.c \
 			stm32f4xx_hal_nand.c \
 			stm32f4xx_hal_nor.c \
 			stm32f4xx_hal_pccard.c \
@@ -64,10 +65,28 @@ CCSOURCES = stm32f4xx_hal_adc.c \
 			stm32f4xx_hal_uart.c \
 			stm32f4xx_hal_usart.c \
 			stm32f4xx_hal_wwdg.c \
+			stm32f4xx_ll_adc.c \
+			stm32f4xx_ll_crc.c \
+			stm32f4xx_ll_dac.c \
+			stm32f4xx_ll_dma2d.c \
+			stm32f4xx_ll_dma.c \
+			stm32f4xx_ll_exti.c \
 			stm32f4xx_ll_fmc.c \
 			stm32f4xx_ll_fsmc.c \
+			stm32f4xx_ll_gpio.c \
+			stm32f4xx_ll_i2c.c \
+			stm32f4xx_ll_lptim.c \
+			stm32f4xx_ll_pwr.c \
+			stm32f4xx_ll_rcc.c \
+			stm32f4xx_ll_rng.c \
+			stm32f4xx_ll_rtc.c \
 			stm32f4xx_ll_sdmmc.c \
-			stm32f4xx_ll_usb.c
+			stm32f4xx_ll_spi.c \
+			stm32f4xx_ll_tim.c \
+			stm32f4xx_ll_usart.c \
+			stm32f4xx_ll_usb.c \
+			stm32f4xx_ll_utils.c \
+			Legacy/stm32f4xx_hal_can.c
 
 # List C++ source files here.
 CXXSOURCES =

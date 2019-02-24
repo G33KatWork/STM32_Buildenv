@@ -2,13 +2,11 @@
   ******************************************************************************
   * @file    Demonstrations/Src/stm32f4xx_hal_msp.c
   * @author  MCD Application Team
-  * @version V1.4.1
-  * @date    09-October-2015
-  * @brief   HAL MSP module.    
+  * @brief   HAL MSP module.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -32,8 +30,8 @@
   * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
-  ******************************************************************************  
-  */ 
+  ******************************************************************************
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -69,10 +67,10 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
   /* --------------------------- System Clocks Configuration -----------------*/
   /* TIM4 clock enable */
   __HAL_RCC_TIM4_CLK_ENABLE();
-  
+
   /* GPIOD clock enable */
   __HAL_RCC_GPIOD_CLK_ENABLE();
-  
+
   /*-------------------------- GPIO Configuration ----------------------------*/
   /* GPIOD Configuration: Pins 12, 13, 14 and 15 in output push-pull */
   GPIO_InitStructure.Pin = GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15;
@@ -91,7 +89,7 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
 void HAL_TIM_PWM_MspDeInit(TIM_HandleTypeDef *htim)
 {
   /* TIM4 clock reset */
-  __HAL_RCC_TIM4_FORCE_RESET();  
+  __HAL_RCC_TIM4_FORCE_RESET();
   __HAL_RCC_TIM4_RELEASE_RESET();
 }
 

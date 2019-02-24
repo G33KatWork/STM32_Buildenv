@@ -2,28 +2,46 @@
   ******************************************************************************
   * @file    Demonstrations/Src/usbd_desc.c
   * @author  MCD Application Team
-  * @version V1.4.1
-  * @date    09-October-2015
   * @brief   This file provides the USBD descriptors and string formating method.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics International N.V.
+  * All rights reserved.</center></h2>
   *
-  * Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-  * You may not use this file except in compliance with the License.
-  * You may obtain a copy of the License at:
+  * Redistribution and use in source and binary forms, with or without
+  * modification, are permitted, provided that the following conditions are met:
   *
-  *        http://www.st.com/software_license_agreement_liberty_v2
+  * 1. Redistribution of source code must retain the above copyright notice,
+  *    this list of conditions and the following disclaimer.
+  * 2. Redistributions in binary form must reproduce the above copyright notice,
+  *    this list of conditions and the following disclaimer in the documentation
+  *    and/or other materials provided with the distribution.
+  * 3. Neither the name of STMicroelectronics nor the names of other
+  *    contributors to this software may be used to endorse or promote products
+  *    derived from this software without specific written permission.
+  * 4. This software, including modifications and/or derivative works of this
+  *    software, must execute solely and exclusively on microcontroller or
+  *    microprocessor devices manufactured by or for STMicroelectronics.
+  * 5. Redistribution and use of this software other than as permitted under
+  *    this license is void and will automatically terminate your rights under
+  *    this license.
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
-  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  * See the License for the specific language governing permissions and
-  * limitations under the License.
+  * THIS SOFTWARE IS PROVIDED BY STMICROELECTRONICS AND CONTRIBUTORS "AS IS"
+  * AND ANY EXPRESS, IMPLIED OR STATUTORY WARRANTIES, INCLUDING, BUT NOT
+  * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+  * PARTICULAR PURPOSE AND NON-INFRINGEMENT OF THIRD PARTY INTELLECTUAL PROPERTY
+  * RIGHTS ARE DISCLAIMED TO THE FULLEST EXTENT PERMITTED BY LAW. IN NO EVENT
+  * SHALL STMICROELECTRONICS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+  * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+  * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_core.h"
@@ -35,22 +53,22 @@
   */
 
 
-/** @defgroup USBD_DESC 
+/** @defgroup USBD_DESC
   * @brief USBD descriptors module
   * @{
-  */ 
+  */
 
 /** @defgroup USBD_DESC_Private_TypesDefinitions
   * @{
-  */ 
+  */
 /**
   * @}
-  */ 
+  */
 
 
 /** @defgroup USBD_DESC_Private_Defines
   * @{
-  */ 
+  */
 
 #define USBD_VID                   0x0483
 #define USBD_PID                   0x572B
@@ -69,20 +87,20 @@
 #define USBD_INTERFACE_FS_STRING      "HID Interface"
 /**
   * @}
-  */ 
+  */
 
 
 /** @defgroup USBD_DESC_Private_Macros
   * @{
-  */ 
+  */
 /**
   * @}
-  */ 
+  */
 
 
 /** @defgroup USBD_DESC_Private_Variables
   * @{
-  */ 
+  */
 
 uint8_t *     USBD_HID_DeviceDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
 uint8_t *     USBD_HID_LangIDStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
@@ -93,25 +111,25 @@ uint8_t *     USBD_HID_ConfigStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *
 uint8_t *     USBD_HID_InterfaceStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length);
 
 #ifdef USB_SUPPORT_USER_STRING_DESC
-uint8_t *     USBD_HID_USRStringDesc (USBD_SpeedTypeDef speed, uint8_t idx , uint16_t *length);  
-#endif /* USB_SUPPORT_USER_STRING_DESC */  
+uint8_t *     USBD_HID_USRStringDesc (USBD_SpeedTypeDef speed, uint8_t idx , uint16_t *length);
+#endif /* USB_SUPPORT_USER_STRING_DESC */
 
 
 USBD_DescriptorsTypeDef HID_Desc =
 {
   USBD_HID_DeviceDescriptor,
-  USBD_HID_LangIDStrDescriptor, 
+  USBD_HID_LangIDStrDescriptor,
   USBD_HID_ManufacturerStrDescriptor,
   USBD_HID_ProductStrDescriptor,
   USBD_HID_SerialStrDescriptor,
   USBD_HID_ConfigStrDescriptor,
   USBD_HID_InterfaceStrDescriptor,
-  
+
 };
 
 /* USB Standard Device Descriptor */
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
-  #pragma data_alignment=4   
+  #pragma data_alignment=4
 #endif
 __ALIGN_BEGIN uint8_t hUSBDDeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END =
   {
@@ -137,39 +155,39 @@ __ALIGN_BEGIN uint8_t hUSBDDeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END =
 
 /* USB Standard Device Descriptor */
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
-  #pragma data_alignment=4   
+  #pragma data_alignment=4
 #endif
 __ALIGN_BEGIN uint8_t USBD_LangIDDesc[USB_LEN_LANGID_STR_DESC] __ALIGN_END =
 {
-     USB_LEN_LANGID_STR_DESC,         
-     USB_DESC_TYPE_STRING,       
+     USB_LEN_LANGID_STR_DESC,
+     USB_DESC_TYPE_STRING,
      LOBYTE(USBD_LANGID_STRING),
-     HIBYTE(USBD_LANGID_STRING), 
+     HIBYTE(USBD_LANGID_STRING),
 };
 
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
-  #pragma data_alignment=4   
+  #pragma data_alignment=4
 #endif
 __ALIGN_BEGIN uint8_t USBD_StrDesc[USBD_MAX_STR_DESC_SIZ] __ALIGN_END;
 /**
   * @}
-  */ 
+  */
 
 
 /** @defgroup USBD_DESC_Private_FunctionPrototypes
   * @{
-  */ 
+  */
 /**
   * @}
-  */ 
+  */
 
 
 /** @defgroup USBD_DESC_Private_Functions
   * @{
-  */ 
+  */
 
 /**
-* @brief  USBD_HID_DeviceDescriptor 
+* @brief  USBD_HID_DeviceDescriptor
 *         return the device descriptor
 * @param  speed : current device speed
 * @param  length : pointer to data length variable
@@ -182,7 +200,7 @@ uint8_t *  USBD_HID_DeviceDescriptor( USBD_SpeedTypeDef speed , uint16_t *length
 }
 
 /**
-* @brief  USBD_HID_LangIDStrDescriptor 
+* @brief  USBD_HID_LangIDStrDescriptor
 *         return the LangID string descriptor
 * @param  speed : current device speed
 * @param  length : pointer to data length variable
@@ -190,13 +208,13 @@ uint8_t *  USBD_HID_DeviceDescriptor( USBD_SpeedTypeDef speed , uint16_t *length
 */
 uint8_t *  USBD_HID_LangIDStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length)
 {
-  *length =  sizeof(USBD_LangIDDesc);  
+  *length =  sizeof(USBD_LangIDDesc);
   return USBD_LangIDDesc;
 }
 
 
 /**
-* @brief  USBD_HID_ProductStrDescriptor 
+* @brief  USBD_HID_ProductStrDescriptor
 *         return the product string descriptor
 * @param  speed : current device speed
 * @param  length : pointer to data length variable
@@ -205,7 +223,7 @@ uint8_t *  USBD_HID_LangIDStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *len
 uint8_t *  USBD_HID_ProductStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length)
 {
   if(speed == 0)
-  {   
+  {
     USBD_GetString ((uint8_t *)USBD_PRODUCT_HS_STRING, USBD_StrDesc, length);
   }
   else
@@ -216,7 +234,7 @@ uint8_t *  USBD_HID_ProductStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *le
 }
 
 /**
-* @brief  USBD_HID_ManufacturerStrDescriptor 
+* @brief  USBD_HID_ManufacturerStrDescriptor
 *         return the manufacturer string descriptor
 * @param  speed : current device speed
 * @param  length : pointer to data length variable
@@ -229,7 +247,7 @@ uint8_t *  USBD_HID_ManufacturerStrDescriptor( USBD_SpeedTypeDef speed , uint16_
 }
 
 /**
-* @brief  USBD_HID_SerialStrDescriptor 
+* @brief  USBD_HID_SerialStrDescriptor
 *         return the serial number string descriptor
 * @param  speed : current device speed
 * @param  length : pointer to data length variable
@@ -238,7 +256,7 @@ uint8_t *  USBD_HID_ManufacturerStrDescriptor( USBD_SpeedTypeDef speed , uint16_
 uint8_t *  USBD_HID_SerialStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length)
 {
   if(speed  == USBD_SPEED_HIGH)
-  {    
+  {
     USBD_GetString ((uint8_t *)USBD_SERIALNUMBER_HS_STRING, USBD_StrDesc, length);
   }
   else
@@ -249,7 +267,7 @@ uint8_t *  USBD_HID_SerialStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *len
 }
 
 /**
-* @brief  USBD_HID_ConfigStrDescriptor 
+* @brief  USBD_HID_ConfigStrDescriptor
 *         return the configuration string descriptor
 * @param  speed : current device speed
 * @param  length : pointer to data length variable
@@ -258,19 +276,19 @@ uint8_t *  USBD_HID_SerialStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *len
 uint8_t *  USBD_HID_ConfigStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *length)
 {
   if(speed  == USBD_SPEED_HIGH)
-  {  
+  {
     USBD_GetString ((uint8_t *)USBD_CONFIGURATION_HS_STRING, USBD_StrDesc, length);
   }
   else
   {
     USBD_GetString ((uint8_t *)USBD_CONFIGURATION_FS_STRING, USBD_StrDesc, length);
   }
-  return USBD_StrDesc;  
+  return USBD_StrDesc;
 }
 
 
 /**
-* @brief  USBD_HID_InterfaceStrDescriptor 
+* @brief  USBD_HID_InterfaceStrDescriptor
 *         return the interface string descriptor
 * @param  speed : current device speed
 * @param  length : pointer to data length variable
@@ -286,22 +304,22 @@ uint8_t *  USBD_HID_InterfaceStrDescriptor( USBD_SpeedTypeDef speed , uint16_t *
   {
     USBD_GetString ((uint8_t *)USBD_INTERFACE_FS_STRING, USBD_StrDesc, length);
   }
-  return USBD_StrDesc;  
+  return USBD_StrDesc;
 }
 
 /**
   * @}
-  */ 
+  */
 
 
 /**
   * @}
-  */ 
+  */
 
 
 /**
   * @}
-  */ 
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
