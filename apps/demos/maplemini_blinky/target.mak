@@ -23,11 +23,11 @@ ASFLAGS = -fdata-sections -ffunction-sections
 # Linker flags
 LDFLAGS := -lnosys -lc -Wl,--gc-sections
 LDFLAGS += -mthumb -mcpu=cortex-m3
-LDFLAGS += -Wl,-T$(ROOT)/misc/linker/f1/STM32F103XB_FLASH.ld,-Map,$(SELF_DIR)/$(TARGET).map
+LDFLAGS += -Wl,-T$(BUILD)/misc/linker/f1/STM32F103XB_FLASH.ld,-Map,$(SELF_DIR)/$(TARGET).map
 
 # Additional include paths to consider
 INCLUDES = $(SELF_DIR)/inc \
-           $(ROOT)/libs/libdummy/inc
+           $(BUILD)/libs/libdummy/inc
 
 # Middlewares to add
 # source files are built with this target (specific for this target, so local header files are consideres)
@@ -46,4 +46,4 @@ SRCDIR = src
 # Additional defines
 DEFINES := -DSTM32F103xB -DUSE_HAL_DRIVER
 
-include $(ROOT)/build/targets/executable.mak
+include $(BUILD)/build/targets/executable.mak

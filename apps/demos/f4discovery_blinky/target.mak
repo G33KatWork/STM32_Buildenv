@@ -23,11 +23,11 @@ ASFLAGS = -fdata-sections -ffunction-sections
 # Linker flags
 LDFLAGS := -lnosys -lc -Wl,--gc-sections
 LDFLAGS += -mthumb -mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16
-LDFLAGS += -Wl,-T$(ROOT)/misc/linker/f4/STM32F407VG_FLASH.ld,-Map,$(SELF_DIR)/$(TARGET).map
+LDFLAGS += -Wl,-T$(BUILD)/misc/linker/f4/STM32F407VG_FLASH.ld,-Map,$(SELF_DIR)/$(TARGET).map
 
 # Additional include paths to consider
 INCLUDES = $(SELF_DIR)/inc \
-           $(ROOT)/libs/libdummy/inc
+           $(BUILD)/libs/libdummy/inc
 
 # Middlewares to add
 # source files are built with this target (specific for this target, so local header files are consideres)
@@ -46,4 +46,4 @@ SRCDIR = src
 # Additional defines
 DEFINES := -DSTM32F407xx -DUSE_HAL_DRIVER
 
-include $(ROOT)/build/targets/executable.mak
+include $(BUILD)/build/targets/executable.mak

@@ -76,7 +76,7 @@ $(foreach middleware, $(MIDDLEWARES), \
 )
 
 #include jtag adapter rules
-include $(ROOT)/build/jtag_adapters/$(JTAG_ADAPTER).mak
+include $(BUILD)/build/jtag_adapters/$(JTAG_ADAPTER).mak
 
 
 .PHONY: clean-$(TARGET) $(TARGET)

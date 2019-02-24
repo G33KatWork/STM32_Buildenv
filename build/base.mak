@@ -69,7 +69,7 @@ endef
 ############################
 
 # Define toolchain target
-TOOLCHAIN_TARGET    := arm-none-eabi
+TOOLCHAIN_TARGET    ?= arm-none-eabi-
 
 ############################
 # Host build configuration #
@@ -83,17 +83,14 @@ HOSTCFLAGS  := -std=gnu99
 # Include subfiles         #
 ############################
 
-# Grab config file
-include $(ROOT)/config.mak
-
 # Grab the toolchain information.
-include $(ROOT)/build/toolchain.mak
+include $(BUILD)/build/toolchain.mak
 
 # Include the compilation rules to be instantiated in projects later
-include $(ROOT)/build/compilation_rules.mak
+include $(BUILD)/build/compilation_rules.mak
 
 # Include subdirs macro
-include $(ROOT)/build/subdirs.mak
+include $(BUILD)/build/subdirs.mak
 
 
 endif

@@ -10,9 +10,9 @@ CXXSOURCES =
 ASOURCES =
 
 # Additional include paths to consider
-INCLUDES =	$(ROOT)/middlewares/bsp/maple_mini
+INCLUDES =	$(BUILD)/middlewares/bsp/maple_mini
 
 # Folder for sourcecode
 SRCDIR = .
 
-include $(ROOT)/build/targets/middleware.mak
+include $(BUILD)/build/targets/middleware.mak

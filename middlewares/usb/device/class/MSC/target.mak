@@ -10,9 +10,9 @@ CXXSOURCES =
 ASOURCES =
 
 # Additional include paths to consider
-INCLUDES =	$(ROOT)/middlewares/usb/device/class/MSC/Inc
+INCLUDES =	$(BUILD)/middlewares/usb/device/class/MSC/Inc
 
 # Folder for sourcecode
 SRCDIR = Src
 
-include $(ROOT)/build/targets/middleware.mak
+include $(BUILD)/build/targets/middleware.mak

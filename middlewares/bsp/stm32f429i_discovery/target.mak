@@ -24,9 +24,9 @@ CXXSOURCES =
 ASOURCES =
 
 # Additional include paths to consider
-INCLUDES =	$(ROOT)/middlewares/bsp/stm32f4_discovery
+INCLUDES =	$(BUILD)/middlewares/bsp/stm32f4_discovery
 
 # Folder for sourcecode
 SRCDIR = .
 
-include $(ROOT)/build/targets/middleware.mak
+include $(BUILD)/build/targets/middleware.mak

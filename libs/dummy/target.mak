@@ -26,7 +26,7 @@ ASFLAGS := $(CPUFLAGS)
 ASFLAGS += -fdata-sections -ffunction-sections
 
 # Additional include paths to consider
-INCLUDES = $(ROOT)/libs/dummy/inc
+INCLUDES = $(BUILD)/libs/dummy/inc
 
 # Additional local static libs to link against
 LIBS = 
@@ -40,4 +40,4 @@ SRCDIR = src
 # Additional defines
 DEFINES := 
 
-include $(ROOT)/build/targets/lib.mak
+include $(BUILD)/build/targets/lib.mak
