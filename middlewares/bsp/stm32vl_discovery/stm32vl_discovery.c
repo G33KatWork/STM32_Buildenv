@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    stm32vl_discovery.c
   * @author  MCD Application Team
-  * @version V1.0.0
-  * @date    15-December-2014
+  * @version V1.0.2
+  * @date    14-April-2017
   * @brief   This file provides
   *            - set of firmware functions to manage Led and push-button
   *          available on STM32VL-Discovery board from STMicroelectronics.  
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2014 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -119,7 +119,7 @@ void BSP_LED_Init(Led_TypeDef Led)
   gpioinitstruct.Pin    = LED_PIN[Led];
   gpioinitstruct.Mode   = GPIO_MODE_OUTPUT_PP;
   gpioinitstruct.Pull   = GPIO_NOPULL;
-  gpioinitstruct.Speed  = GPIO_SPEED_HIGH;
+  gpioinitstruct.Speed  = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(LED_PORT[Led], &gpioinitstruct);
 
   /* Reset PIN to switch off the LED */
@@ -185,7 +185,7 @@ void BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef Button_Mode)
 
   gpioinitstruct.Pin    = BUTTON_PIN[Button];
   gpioinitstruct.Pull   = GPIO_NOPULL;
-  gpioinitstruct.Speed  = GPIO_SPEED_HIGH;
+  gpioinitstruct.Speed  = GPIO_SPEED_FREQ_HIGH;
 
   if (Button_Mode == BUTTON_MODE_GPIO)
   {

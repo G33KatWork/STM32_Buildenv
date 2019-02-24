@@ -1,22 +1,22 @@
 /**
-  *************** (C) COPYRIGHT 2015 STMicroelectronics ************************
+  *************** (C) COPYRIGHT 2017 STMicroelectronics ************************
   * @file      startup_stm32f100xb.s
   * @author    MCD Application Team
-  * @version   V4.0.1
-  * @date      31-July-2015
+  * @version   V4.2.0
+  * @date      31-March-2017
   * @brief     STM32F100xB Devices vector table for Atollic toolchain.
   *            This module performs:
   *                - Set the initial SP
   *                - Set the initial PC == Reset_Handler,
   *                - Set the vector table entries with the exceptions ISR address
-  *                - Configure the clock system   
+  *                - Configure the clock system
   *                - Branches to main in the C library (which eventually
   *                  calls main()).
   *            After Reset the Cortex-M3 processor is in Thread mode,
   *            priority is Privileged, and the Stack is set to Main.
   ******************************************************************************
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -212,7 +212,7 @@ g_pfnVectors:
   .word 0
   .word 0
   .word TIM6_DAC_IRQHandler
-  .word TIM7_IRQHandler  
+  .word TIM7_IRQHandler
   .word 0
   .word 0
   .word 0
@@ -256,7 +256,7 @@ g_pfnVectors:
   .word 0
   .word 0
   .word 0
-  .word BootRAM          /* @0x01CC. This is for boot in RAM mode for 
+  .word BootRAM          /* @0x01CC. This is for boot in RAM mode for
                             STM32F10xB Value Line devices. */
 
 /*******************************************************************************
@@ -267,16 +267,16 @@ g_pfnVectors:
 *
 *******************************************************************************/
 
-    
+
   .weak  NMI_Handler
   .thumb_set NMI_Handler,Default_Handler
-  
+
   .weak  HardFault_Handler
   .thumb_set HardFault_Handler,Default_Handler
-  
+
   .weak  MemManage_Handler
   .thumb_set MemManage_Handler,Default_Handler
-  
+
   .weak  BusFault_Handler
   .thumb_set BusFault_Handler,Default_Handler
 
@@ -369,7 +369,7 @@ g_pfnVectors:
 
   .weak  TIM2_IRQHandler
   .thumb_set TIM2_IRQHandler,Default_Handler
-  
+
   .weak  TIM3_IRQHandler
   .thumb_set TIM3_IRQHandler,Default_Handler
 
@@ -381,7 +381,7 @@ g_pfnVectors:
 
   .weak  I2C1_ER_IRQHandler
   .thumb_set I2C1_ER_IRQHandler,Default_Handler
-  
+
   .weak  I2C2_EV_IRQHandler
   .thumb_set I2C1_EV_IRQHandler,Default_Handler
 
@@ -390,7 +390,7 @@ g_pfnVectors:
 
   .weak  SPI1_IRQHandler
   .thumb_set SPI1_IRQHandler,Default_Handler
-  
+
   .weak  SPI1_IRQHandler
   .thumb_set SPI2_IRQHandler,Default_Handler
 
@@ -399,7 +399,7 @@ g_pfnVectors:
 
   .weak  USART2_IRQHandler
   .thumb_set USART2_IRQHandler,Default_Handler
-  
+
   .weak  USART3_IRQHandler
   .thumb_set USART3_IRQHandler,Default_Handler
 
@@ -416,7 +416,7 @@ g_pfnVectors:
   .thumb_set TIM6_DAC_IRQHandler,Default_Handler
 
   .weak  TIM7_IRQHandler
-  .thumb_set TIM7_IRQHandler,Default_Handler  
+  .thumb_set TIM7_IRQHandler,Default_Handler
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

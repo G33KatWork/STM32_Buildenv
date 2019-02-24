@@ -1,22 +1,22 @@
 /**
-  *************** (C) COPYRIGHT 2015 STMicroelectronics ************************
+  *************** (C) COPYRIGHT 2017 STMicroelectronics ************************
   * @file      startup_stm32f101x6.s
   * @author    MCD Application Team
-  * @version   V4.0.1
-  * @date      31-July-2015
+  * @version   V4.2.0
+  * @date      31-March-2017
   * @brief     STM32F101x6 Devices vector table for Atollic toolchain.
   *            This module performs:
   *                - Set the initial SP
   *                - Set the initial PC == Reset_Handler,
   *                - Set the vector table entries with the exceptions ISR address
-  *                - Configure the clock system   
+  *                - Configure the clock system
   *                - Branches to main in the C library (which eventually
   *                  calls main()).
   *            After Reset the Cortex-M3 processor is in Thread mode,
   *            priority is Privileged, and the Stack is set to Main.
   ******************************************************************************
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:

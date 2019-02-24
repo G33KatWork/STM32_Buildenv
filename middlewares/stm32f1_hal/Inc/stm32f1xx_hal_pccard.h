@@ -2,13 +2,11 @@
   ******************************************************************************
   * @file    stm32f1xx_hal_pccard.h
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    31-July-2015
   * @brief   Header file of PCCARD HAL module.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -33,7 +31,7 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F1xx_HAL_PCCARD_H
@@ -53,17 +51,17 @@
 #if defined (STM32F101xE) || defined(STM32F103xE) || defined(STM32F101xG) || defined(STM32F103xG)
 /** @addtogroup PCCARD
   * @{
-  */ 
+  */
 
 /** @addtogroup PCCARD_Private_Constants
   * @{
   */
-  
+
 #define PCCARD_DEVICE_ADDRESS           FSMC_BANK4
-#define PCCARD_ATTRIBUTE_SPACE_ADDRESS  ((uint32_t)(FSMC_BANK4 + 0x08000000))  /* Attribute space size to @0x9BFF FFFF */
+#define PCCARD_ATTRIBUTE_SPACE_ADDRESS  ((uint32_t)(FSMC_BANK4 + 0x08000000U))  /* Attribute space size to @0x9BFF FFFF */
 #define PCCARD_COMMON_SPACE_ADDRESS     PCCARD_DEVICE_ADDRESS                           /* Common space size to @0x93FF FFFF    */
-#define PCCARD_IO_SPACE_ADDRESS         ((uint32_t)(FSMC_BANK4 + 0x0C000000))  /* IO space size to @0x9FFF FFFF        */
-#define PCCARD_IO_SPACE_PRIMARY_ADDR    ((uint32_t)(FSMC_BANK4 + 0x0C0001F0))  /* IO space size to @0x9FFF FFFF        */
+#define PCCARD_IO_SPACE_ADDRESS         ((uint32_t)(FSMC_BANK4 + 0x0C000000U))  /* IO space size to @0x9FFF FFFF        */
+#define PCCARD_IO_SPACE_PRIMARY_ADDR    ((uint32_t)(FSMC_BANK4 + 0x0C0001F0U))  /* IO space size to @0x9FFF FFFF        */
 
 /* Compact Flash-ATA registers description */
 #define ATA_DATA                        ((uint8_t)0x00)    /* Data register */
@@ -89,8 +87,8 @@
 #define PCCARD_PROGR                    ((uint8_t)0x01)
 #define PCCARD_READY                    ((uint8_t)0x40)
 
-#define PCCARD_SECTOR_SIZE              ((uint32_t)255)    /* In half words */ 
- 
+#define PCCARD_SECTOR_SIZE              255U    /* In half words */
+
 
 /* Compact Flash redefinition */
 #define HAL_CF_Read_ID              HAL_PCCARD_Read_ID
@@ -98,71 +96,70 @@
 #define HAL_CF_Read_Sector          HAL_PCCARD_Read_Sector
 #define HAL_CF_Erase_Sector         HAL_PCCARD_Erase_Sector
 #define HAL_CF_Reset                HAL_PCCARD_Reset
-                                        
+
 #define HAL_CF_GetStatus            HAL_PCCARD_GetStatus
 #define HAL_CF_ReadStatus           HAL_PCCARD_ReadStatus
-                                        
+
 #define CF_SUCCESS                  HAL_PCCARD_STATUS_SUCCESS
 #define CF_ONGOING                  HAL_PCCARD_STATUS_ONGOING
 #define CF_ERROR                    HAL_PCCARD_STATUS_ERROR
 #define CF_TIMEOUT                  HAL_PCCARD_STATUS_TIMEOUT
 #define CF_StatusTypedef            HAL_PCCARD_StatusTypeDef
 
-
-#define CF_DEVICE_ADDRESS           PCCARD_DEVICE_ADDRESS               
+#define CF_DEVICE_ADDRESS           PCCARD_DEVICE_ADDRESS
 #define CF_ATTRIBUTE_SPACE_ADDRESS  PCCARD_ATTRIBUTE_SPACE_ADDRESS
-#define CF_COMMON_SPACE_ADDRESS     PCCARD_COMMON_SPACE_ADDRESS   
-#define CF_IO_SPACE_ADDRESS         PCCARD_IO_SPACE_ADDRESS       
-#define CF_IO_SPACE_PRIMARY_ADDR    PCCARD_IO_SPACE_PRIMARY_ADDR  
+#define CF_COMMON_SPACE_ADDRESS     PCCARD_COMMON_SPACE_ADDRESS
+#define CF_IO_SPACE_ADDRESS         PCCARD_IO_SPACE_ADDRESS
+#define CF_IO_SPACE_PRIMARY_ADDR    PCCARD_IO_SPACE_PRIMARY_ADDR
 
 #define CF_TIMEOUT_ERROR            PCCARD_TIMEOUT_ERROR
-#define CF_BUSY                     PCCARD_BUSY         
-#define CF_PROGR                    PCCARD_PROGR        
-#define CF_READY                    PCCARD_READY        
+#define CF_BUSY                     PCCARD_BUSY
+#define CF_PROGR                    PCCARD_PROGR
+#define CF_READY                    PCCARD_READY
 
 #define CF_SECTOR_SIZE              PCCARD_SECTOR_SIZE
 
 /**
   * @}
-  */ 
+  */
 
 /* Exported typedef ----------------------------------------------------------*/
 /** @defgroup PCCARD_Exported_Types PCCARD Exported Types
   * @{
   */
 
-/** 
-  * @brief  HAL PCCARD State structures definition  
-  */ 
+/**
+  * @brief  HAL PCCARD State structures definition
+  */
 typedef enum
 {
-  HAL_PCCARD_STATE_RESET     = 0x00,    /*!< PCCARD peripheral not yet initialized or disabled */
-  HAL_PCCARD_STATE_READY     = 0x01,    /*!< PCCARD peripheral ready                           */
-  HAL_PCCARD_STATE_BUSY      = 0x02,    /*!< PCCARD peripheral busy                            */   
-  HAL_PCCARD_STATE_ERROR     = 0x04     /*!< PCCARD peripheral error                           */
+  HAL_PCCARD_STATE_RESET     = 0x00U,    /*!< PCCARD peripheral not yet initialized or disabled */
+  HAL_PCCARD_STATE_READY     = 0x01U,    /*!< PCCARD peripheral ready                           */
+  HAL_PCCARD_STATE_BUSY      = 0x02U,    /*!< PCCARD peripheral busy                            */
+  HAL_PCCARD_STATE_ERROR     = 0x04U     /*!< PCCARD peripheral error                           */
 }HAL_PCCARD_StateTypeDef;
 
 typedef enum
 {
-  HAL_PCCARD_STATUS_SUCCESS = 0,
+  HAL_PCCARD_STATUS_SUCCESS = 0U,
   HAL_PCCARD_STATUS_ONGOING,
   HAL_PCCARD_STATUS_ERROR,
   HAL_PCCARD_STATUS_TIMEOUT
 }HAL_PCCARD_StatusTypeDef;
 
-/** 
-  * @brief  FSMC_PCCARD handle Structure definition  
-  */   
+/**
+  * @brief  FSMC_PCCARD handle Structure definition
+  */
 typedef struct
 {
   FSMC_PCCARD_TypeDef           *Instance;              /*!< Register base address for PCCARD device          */
-  
+
   FSMC_PCCARD_InitTypeDef       Init;                   /*!< PCCARD device control configuration parameters   */
 
   __IO HAL_PCCARD_StateTypeDef State;                  /*!< PCCARD device access state                       */
-   
-  HAL_LockTypeDef              Lock;                   /*!< PCCARD Lock                                      */ 
- 
+
+  HAL_LockTypeDef              Lock;                   /*!< PCCARD Lock                                      */
+
 }PCCARD_HandleTypeDef;
 /**
   * @}
@@ -181,26 +178,26 @@ typedef struct
 #define __HAL_PCCARD_RESET_HANDLE_STATE(__HANDLE__) ((__HANDLE__)->State = HAL_PCCARD_STATE_RESET)
 /**
   * @}
-  */ 
+  */
 
 /* Exported functions --------------------------------------------------------*/
 /** @addtogroup PCCARD_Exported_Functions PCCARD Exported Functions
   * @{
   */
 
-/** @addtogroup PCCARD_Exported_Functions_Group1 Initialization and de-initialization functions 
+/** @addtogroup PCCARD_Exported_Functions_Group1 Initialization and de-initialization functions
   * @{
   */
 /* Initialization/de-initialization functions  **********************************/
 HAL_StatusTypeDef  HAL_PCCARD_Init(PCCARD_HandleTypeDef *hpccard, FSMC_NAND_PCC_TimingTypeDef *ComSpaceTiming, FSMC_NAND_PCC_TimingTypeDef *AttSpaceTiming, FSMC_NAND_PCC_TimingTypeDef *IOSpaceTiming);
-HAL_StatusTypeDef  HAL_PCCARD_DeInit(PCCARD_HandleTypeDef *hpccard);   
+HAL_StatusTypeDef  HAL_PCCARD_DeInit(PCCARD_HandleTypeDef *hpccard);
 void               HAL_PCCARD_MspInit(PCCARD_HandleTypeDef *hpccard);
 void               HAL_PCCARD_MspDeInit(PCCARD_HandleTypeDef *hpccard);
 /**
   * @}
   */
 
-/** @addtogroup PCCARD_Exported_Functions_Group2 Input Output and memory functions 
+/** @addtogroup PCCARD_Exported_Functions_Group2 Input Output and memory functions
   * @{
   */
 /* IO operation functions  *****************************************************/
@@ -216,7 +213,7 @@ void               HAL_PCCARD_ITCallback(PCCARD_HandleTypeDef *hpccard);
   * @}
   */
 
-/** @defgroup PCCARD_Exported_Functions_Group3 Peripheral State functions 
+/** @defgroup PCCARD_Exported_Functions_Group3 Peripheral State functions
   * @{
   */
 /* PCCARD State functions *******************************************************/
@@ -233,13 +230,13 @@ HAL_PCCARD_StatusTypeDef HAL_PCCARD_ReadStatus(PCCARD_HandleTypeDef *hpccard);
 
 /**
   * @}
-  */ 
+  */
 
 #endif /* STM32F101xE || STM32F103xE || STM32F101xG || STM32F103xG */
 /**
   * @}
   */
-  
+
 #ifdef __cplusplus
 }
 #endif

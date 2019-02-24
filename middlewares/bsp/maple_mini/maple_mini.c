@@ -78,7 +78,7 @@ void BSP_LED_Init(Led_TypeDef Led)
   gpioinitstruct.Pin    = LED_PIN[Led];
   gpioinitstruct.Mode   = GPIO_MODE_OUTPUT_PP;
   gpioinitstruct.Pull   = GPIO_NOPULL;
-  gpioinitstruct.Speed  = GPIO_SPEED_HIGH;
+  gpioinitstruct.Speed  = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(LED_PORT[Led], &gpioinitstruct);
 
   /* Reset PIN to switch off the LED */
@@ -144,7 +144,7 @@ void BSP_PB_Init(Button_TypeDef Button, ButtonMode_TypeDef Button_Mode)
 
   gpioinitstruct.Pin    = BUTTON_PIN[Button];
   gpioinitstruct.Pull   = GPIO_NOPULL;
-  gpioinitstruct.Speed  = GPIO_SPEED_HIGH;
+  gpioinitstruct.Speed  = GPIO_SPEED_FREQ_HIGH;
 
   if (Button_Mode == BUTTON_MODE_GPIO)
   {

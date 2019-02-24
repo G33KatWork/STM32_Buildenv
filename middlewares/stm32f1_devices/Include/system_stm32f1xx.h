@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    system_stm32f10x.h
   * @author  MCD Application Team
-  * @version V4.0.1
-  * @date    31-July-2015
+  * @version V4.2.0
+  * @date    31-March-2017
   * @brief   CMSIS Cortex-M3 Device Peripheral Access Layer System Header File.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -41,8 +41,8 @@
 
 /** @addtogroup stm32f10x_system
   * @{
-  */  
-  
+  */
+
 /**
   * @brief Define to prevent recursive inclusion
   */
@@ -51,7 +51,7 @@
 
 #ifdef __cplusplus
  extern "C" {
-#endif 
+#endif
 
 /** @addtogroup STM32F10x_System_Includes
   * @{
@@ -67,6 +67,8 @@
   */
 
 extern uint32_t SystemCoreClock;          /*!< System Clock Frequency (Core Clock) */
+extern const uint8_t  AHBPrescTable[16U];  /*!< AHB prescalers table values */
+extern const uint8_t  APBPrescTable[8U];   /*!< APB prescalers table values */
 
 /**
   * @}
@@ -91,7 +93,7 @@ extern uint32_t SystemCoreClock;          /*!< System Clock Frequency (Core Cloc
 /** @addtogroup STM32F10x_System_Exported_Functions
   * @{
   */
-  
+
 extern void SystemInit(void);
 extern void SystemCoreClockUpdate(void);
 /**
@@ -107,8 +109,8 @@ extern void SystemCoreClockUpdate(void);
 /**
   * @}
   */
-  
+
 /**
   * @}
-  */  
+  */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

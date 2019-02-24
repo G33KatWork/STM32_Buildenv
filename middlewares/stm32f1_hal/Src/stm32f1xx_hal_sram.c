@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f1xx_hal_sram.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    31-July-2015
   * @brief   SRAM HAL module driver.
   *          This file provides a generic firmware to drive SRAM memories  
   *          mounted as external device.
@@ -64,7 +62,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -201,6 +199,8 @@ HAL_StatusTypeDef  HAL_SRAM_DeInit(SRAM_HandleTypeDef *hsram)
   */
 __weak void HAL_SRAM_MspInit(SRAM_HandleTypeDef *hsram)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hsram);
   /* NOTE : This function Should not be modified, when the callback is needed,
             the HAL_SRAM_MspInit could be implemented in the user file
    */ 
@@ -214,6 +214,8 @@ __weak void HAL_SRAM_MspInit(SRAM_HandleTypeDef *hsram)
   */
 __weak void HAL_SRAM_MspDeInit(SRAM_HandleTypeDef *hsram)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hsram);
   /* NOTE : This function Should not be modified, when the callback is needed,
             the HAL_SRAM_MspDeInit could be implemented in the user file
    */ 
@@ -227,6 +229,8 @@ __weak void HAL_SRAM_MspDeInit(SRAM_HandleTypeDef *hsram)
   */
 __weak void HAL_SRAM_DMA_XferCpltCallback(DMA_HandleTypeDef *hdma)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hdma);
   /* NOTE : This function Should not be modified, when the callback is needed,
             the HAL_SRAM_DMA_XferCpltCallback could be implemented in the user file
    */ 
@@ -240,6 +244,8 @@ __weak void HAL_SRAM_DMA_XferCpltCallback(DMA_HandleTypeDef *hdma)
   */
 __weak void HAL_SRAM_DMA_XferErrorCallback(DMA_HandleTypeDef *hdma)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hdma);
   /* NOTE : This function Should not be modified, when the callback is needed,
             the HAL_SRAM_DMA_XferErrorCallback could be implemented in the user file
    */ 
@@ -283,7 +289,7 @@ HAL_StatusTypeDef HAL_SRAM_Read_8b(SRAM_HandleTypeDef *hsram, uint32_t *pAddress
   hsram->State = HAL_SRAM_STATE_BUSY;  
   
   /* Read data from memory */
-  for(; BufferSize != 0; BufferSize--)
+  for(; BufferSize != 0U; BufferSize--)
   {
     *pDstBuffer = *(__IO uint8_t *)psramaddress;
     pDstBuffer++;
@@ -325,7 +331,7 @@ HAL_StatusTypeDef HAL_SRAM_Write_8b(SRAM_HandleTypeDef *hsram, uint32_t *pAddres
   hsram->State = HAL_SRAM_STATE_BUSY; 
 
   /* Write data to memory */
-  for(; BufferSize != 0; BufferSize--)
+  for(; BufferSize != 0U; BufferSize--)
   {
     *(__IO uint8_t *)psramaddress = *pSrcBuffer; 
     pSrcBuffer++;
@@ -361,7 +367,7 @@ HAL_StatusTypeDef HAL_SRAM_Read_16b(SRAM_HandleTypeDef *hsram, uint32_t *pAddres
   hsram->State = HAL_SRAM_STATE_BUSY;  
   
   /* Read data from memory */
-  for(; BufferSize != 0; BufferSize--)
+  for(; BufferSize != 0U; BufferSize--)
   {
     *pDstBuffer = *(__IO uint16_t *)psramaddress;
     pDstBuffer++;
@@ -403,7 +409,7 @@ HAL_StatusTypeDef HAL_SRAM_Write_16b(SRAM_HandleTypeDef *hsram, uint32_t *pAddre
   hsram->State = HAL_SRAM_STATE_BUSY; 
 
   /* Write data to memory */
-  for(; BufferSize != 0; BufferSize--)
+  for(; BufferSize != 0U; BufferSize--)
   {
     *(__IO uint16_t *)psramaddress = *pSrcBuffer; 
     pSrcBuffer++;
@@ -437,7 +443,7 @@ HAL_StatusTypeDef HAL_SRAM_Read_32b(SRAM_HandleTypeDef *hsram, uint32_t *pAddres
   hsram->State = HAL_SRAM_STATE_BUSY;  
   
   /* Read data from memory */
-  for(; BufferSize != 0; BufferSize--)
+  for(; BufferSize != 0U; BufferSize--)
   {
     *pDstBuffer = *(__IO uint32_t *)pAddress;
     pDstBuffer++;
@@ -477,7 +483,7 @@ HAL_StatusTypeDef HAL_SRAM_Write_32b(SRAM_HandleTypeDef *hsram, uint32_t *pAddre
   hsram->State = HAL_SRAM_STATE_BUSY; 
 
   /* Write data to memory */
-  for(; BufferSize != 0; BufferSize--)
+  for(; BufferSize != 0U; BufferSize--)
   {
     *(__IO uint32_t *)pAddress = *pSrcBuffer; 
     pSrcBuffer++;

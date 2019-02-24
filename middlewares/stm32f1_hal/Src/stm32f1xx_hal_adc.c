@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f1xx_hal_adc.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    31-July-2015
   * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the Analog to Digital Convertor (ADC)
   *          peripheral:
@@ -247,7 +245,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -300,18 +298,18 @@
   /* Ex of profile low frequency : Clock source at 0.1 MHz, ADC clock         */
   /* prescaler 4, sampling time 12.5 ADC clock cycles, resolution 12 bits.    */
   /* Unit: ms                                                                 */
-  #define ADC_ENABLE_TIMEOUT              ((uint32_t) 2)
-  #define ADC_DISABLE_TIMEOUT             ((uint32_t) 2)
+  #define ADC_ENABLE_TIMEOUT              2U
+  #define ADC_DISABLE_TIMEOUT             2U
 
   /* Delay for ADC stabilization time.                                        */
   /* Maximum delay is 1us (refer to device datasheet, parameter tSTAB).       */
   /* Unit: us                                                                 */
-  #define ADC_STAB_DELAY_US               ((uint32_t) 1)
+  #define ADC_STAB_DELAY_US               1U
 
   /* Delay for temperature sensor stabilization time.                         */
   /* Maximum delay is 10us (refer to device datasheet, parameter tSTART).     */
   /* Unit: us                                                                 */
-  #define ADC_TEMPSENSOR_DELAY_US         ((uint32_t) 10)
+  #define ADC_TEMPSENSOR_DELAY_US         10U
 
 /**
   * @}
@@ -374,9 +372,9 @@
 HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef* hadc)
 {
   HAL_StatusTypeDef tmp_hal_status = HAL_OK;
-  uint32_t tmp_cr1 = 0;
-  uint32_t tmp_cr2 = 0;
-  uint32_t tmp_sqr1 = 0;
+  uint32_t tmp_cr1 = 0U;
+  uint32_t tmp_cr2 = 0U;
+  uint32_t tmp_sqr1 = 0U;
   
   /* Check ADC handle */
   if(hadc == NULL)
@@ -395,7 +393,10 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef* hadc)
   {
     assert_param(IS_ADC_REGULAR_NB_CONV(hadc->Init.NbrOfConversion));
     assert_param(IS_FUNCTIONAL_STATE(hadc->Init.DiscontinuousConvMode));
-    assert_param(IS_ADC_REGULAR_DISCONT_NUMBER(hadc->Init.NbrOfDiscConversion));
+    if(hadc->Init.DiscontinuousConvMode != DISABLE)
+    {
+      assert_param(IS_ADC_REGULAR_DISCONT_NUMBER(hadc->Init.NbrOfDiscConversion));
+    }
   }
   
   /* As prerequisite, into HAL_ADC_MspInit(), ADC clock must be configured    */
@@ -458,6 +459,8 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef* hadc)
     tmp_cr1 |= (ADC_CR1_SCAN_SET(hadc->Init.ScanConvMode));
     
     /* Enable discontinuous mode only if continuous mode is disabled */
+    /* Note: If parameter "Init.ScanConvMode" is set to disable, parameter    */
+    /*       discontinuous is set anyway, but will have no effect on ADC HW.  */
     if (hadc->Init.DiscontinuousConvMode == ENABLE)
     {
       if (hadc->Init.ContinuousConvMode == DISABLE)
@@ -504,7 +507,7 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef* hadc)
     /*   conversions is forced to 0x00 for alignment over all STM32 devices.  */
     /* - if scan mode is enabled, regular channels sequence length is set to  */
     /*   parameter "NbrOfConversion"                                          */
-    if (hadc->Init.ScanConvMode == ADC_SCAN_ENABLE)
+    if (ADC_CR1_SCAN_SET(hadc->Init.ScanConvMode) == ADC_SCAN_ENABLE)
     {
       tmp_sqr1 = ADC_SQR1_L_SHIFT(hadc->Init.NbrOfConversion);
     }
@@ -707,6 +710,8 @@ HAL_StatusTypeDef HAL_ADC_DeInit(ADC_HandleTypeDef* hadc)
   */
 __weak void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hadc);
   /* NOTE : This function should not be modified. When the callback is needed,
             function HAL_ADC_MspInit must be implemented in the user file.
    */ 
@@ -719,6 +724,8 @@ __weak void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc)
   */
 __weak void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hadc);
   /* NOTE : This function should not be modified. When the callback is needed,
             function HAL_ADC_MspDeInit must be implemented in the user file.
    */ 
@@ -915,12 +922,12 @@ HAL_StatusTypeDef HAL_ADC_Stop(ADC_HandleTypeDef* hadc)
   */
 HAL_StatusTypeDef HAL_ADC_PollForConversion(ADC_HandleTypeDef* hadc, uint32_t Timeout)
 {
-  uint32_t tickstart = 0;
+  uint32_t tickstart = 0U;
   
   /* Variables for polling in case of scan mode enabled and polling for each  */
   /* conversion.                                                              */
-  __IO uint32_t Conversion_Timeout_CPU_cycles = 0;
-  uint32_t Conversion_Timeout_CPU_cycles_max = 0;
+  __IO uint32_t Conversion_Timeout_CPU_cycles = 0U;
+  uint32_t Conversion_Timeout_CPU_cycles_max = 0U;
  
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
@@ -965,7 +972,7 @@ HAL_StatusTypeDef HAL_ADC_PollForConversion(ADC_HandleTypeDef* hadc, uint32_t Ti
       /* Check if timeout is disabled (set to infinite wait) */
       if(Timeout != HAL_MAX_DELAY)
       {
-        if((Timeout == 0) || ((HAL_GetTick() - tickstart ) > Timeout))
+        if((Timeout == 0U) || ((HAL_GetTick() - tickstart ) > Timeout))
         {
           /* Update ADC state machine to timeout */
           SET_BIT(hadc->State, HAL_ADC_STATE_TIMEOUT);
@@ -993,7 +1000,7 @@ HAL_StatusTypeDef HAL_ADC_PollForConversion(ADC_HandleTypeDef* hadc, uint32_t Ti
       /* Check if timeout is disabled (set to infinite wait) */
       if(Timeout != HAL_MAX_DELAY)
       {
-        if((Timeout == 0) || ((HAL_GetTick() - tickstart) > Timeout))
+        if((Timeout == 0U) || ((HAL_GetTick() - tickstart) > Timeout))
         {
           /* Update ADC state machine to timeout */
           SET_BIT(hadc->State, HAL_ADC_STATE_TIMEOUT);
@@ -1046,7 +1053,7 @@ HAL_StatusTypeDef HAL_ADC_PollForConversion(ADC_HandleTypeDef* hadc, uint32_t Ti
   */
 HAL_StatusTypeDef HAL_ADC_PollForEvent(ADC_HandleTypeDef* hadc, uint32_t EventType, uint32_t Timeout)
 {
-  uint32_t tickstart = 0; 
+  uint32_t tickstart = 0U; 
 
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
@@ -1054,14 +1061,14 @@ HAL_StatusTypeDef HAL_ADC_PollForEvent(ADC_HandleTypeDef* hadc, uint32_t EventTy
   
   /* Get tick count */
   tickstart = HAL_GetTick();
-      
+  
   /* Check selected event flag */
   while(__HAL_ADC_GET_FLAG(hadc, EventType) == RESET)
   {
     /* Check if timeout is disabled (set to infinite wait) */
     if(Timeout != HAL_MAX_DELAY)
     {
-      if((Timeout == 0) || ((HAL_GetTick() - tickstart ) > Timeout))
+      if((Timeout == 0U) || ((HAL_GetTick() - tickstart ) > Timeout))
       {
         /* Update ADC state machine to timeout */
         SET_BIT(hadc->State, HAL_ADC_STATE_TIMEOUT);
@@ -1069,7 +1076,7 @@ HAL_StatusTypeDef HAL_ADC_PollForEvent(ADC_HandleTypeDef* hadc, uint32_t EventTy
         /* Process unlocked */
         __HAL_UNLOCK(hadc);
         
-        return HAL_ERROR;
+        return HAL_TIMEOUT;
       }
     }
   }
@@ -1450,10 +1457,22 @@ HAL_StatusTypeDef HAL_ADC_Stop_DMA(ADC_HandleTypeDef* hadc)
 
 /**
   * @brief  Get ADC regular group conversion result.
-  * @note   Reading DR register automatically clears EOC (end of conversion of
-  *         regular group) flag.
+  * @note   Reading register DR automatically clears ADC flag EOC
+  *         (ADC group regular end of unitary conversion).
+  * @note   This function does not clear ADC flag EOS 
+  *         (ADC group regular end of sequence conversion).
+  *         Occurrence of flag EOS rising:
+  *          - If sequencer is composed of 1 rank, flag EOS is equivalent
+  *            to flag EOC.
+  *          - If sequencer is composed of several ranks, during the scan
+  *            sequence flag EOC only is raised, at the end of the scan sequence
+  *            both flags EOC and EOS are raised.
+  *         To clear this flag, either use function: 
+  *         in programming model IT: @ref HAL_ADC_IRQHandler(), in programming
+  *         model polling: @ref HAL_ADC_PollForConversion() 
+  *         or @ref __HAL_ADC_CLEAR_FLAG(&hadc, ADC_FLAG_EOS).
   * @param  hadc: ADC handle
-  * @retval Converted value
+  * @retval ADC group regular conversion data
   */
 uint32_t HAL_ADC_GetValue(ADC_HandleTypeDef* hadc)
 {
@@ -1589,6 +1608,8 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef* hadc)
   */
 __weak void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hadc);
   /* NOTE : This function should not be modified. When the callback is needed,
             function HAL_ADC_ConvCpltCallback must be implemented in the user file.
    */
@@ -1601,6 +1622,8 @@ __weak void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
   */
 __weak void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef* hadc)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hadc);
   /* NOTE : This function should not be modified. When the callback is needed,
             function HAL_ADC_ConvHalfCpltCallback must be implemented in the user file.
   */
@@ -1613,6 +1636,8 @@ __weak void HAL_ADC_ConvHalfCpltCallback(ADC_HandleTypeDef* hadc)
   */
 __weak void HAL_ADC_LevelOutOfWindowCallback(ADC_HandleTypeDef* hadc)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hadc);
   /* NOTE : This function should not be modified. When the callback is needed,
             function HAL_ADC_LevelOutOfWindowCallback must be implemented in the user file.
   */
@@ -1626,6 +1651,8 @@ __weak void HAL_ADC_LevelOutOfWindowCallback(ADC_HandleTypeDef* hadc)
   */
 __weak void HAL_ADC_ErrorCallback(ADC_HandleTypeDef *hadc)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hadc);
   /* NOTE : This function should not be modified. When the callback is needed,
             function HAL_ADC_ErrorCallback must be implemented in the user file.
   */
@@ -1673,7 +1700,7 @@ __weak void HAL_ADC_ErrorCallback(ADC_HandleTypeDef *hadc)
 HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef* hadc, ADC_ChannelConfTypeDef* sConfig)
 { 
   HAL_StatusTypeDef tmp_hal_status = HAL_OK;
-  __IO uint32_t wait_loop_index = 0;
+  __IO uint32_t wait_loop_index = 0U;
   
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
@@ -1687,14 +1714,14 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef* hadc, ADC_ChannelConf
   
   /* Regular sequence configuration */
   /* For Rank 1 to 6 */
-  if (sConfig->Rank < 7)
+  if (sConfig->Rank < 7U)
   {
     MODIFY_REG(hadc->Instance->SQR3                        ,
                ADC_SQR3_RK(ADC_SQR3_SQ1, sConfig->Rank)    ,
                ADC_SQR3_RK(sConfig->Channel, sConfig->Rank) );
   }
   /* For Rank 7 to 12 */
-  else if (sConfig->Rank < 13)
+  else if (sConfig->Rank < 13U)
   {
     MODIFY_REG(hadc->Instance->SQR2                        ,
                ADC_SQR2_RK(ADC_SQR2_SQ7, sConfig->Rank)    ,
@@ -1742,8 +1769,8 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef* hadc, ADC_ChannelConf
         {
           /* Delay for temperature sensor stabilization time */
           /* Compute number of CPU cycles to wait for */
-          wait_loop_index = (ADC_TEMPSENSOR_DELAY_US * (SystemCoreClock / 1000000));
-          while(wait_loop_index != 0)
+          wait_loop_index = (ADC_TEMPSENSOR_DELAY_US * (SystemCoreClock / 1000000U));
+          while(wait_loop_index != 0U)
           {
             wait_loop_index--;
           }
@@ -1768,6 +1795,14 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef* hadc, ADC_ChannelConf
 
 /**
   * @brief  Configures the analog watchdog.
+  * @note   Analog watchdog thresholds can be modified while ADC conversion
+  *         is on going.
+  *         In this case, some constraints must be taken into account:
+  *         the programmed threshold values are effective from the next
+  *         ADC EOC (end of unitary conversion).
+  *         Considering that registers write delay may happen due to
+  *         bus activity, this might cause an uncertainty on the
+  *         effective timing of the new programmed threshold values.
   * @param  hadc: ADC handle
   * @param  AnalogWDGConfig: Structure of ADC analog watchdog configuration
   * @retval HAL status
@@ -1896,8 +1931,8 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc)
   */
 HAL_StatusTypeDef ADC_Enable(ADC_HandleTypeDef* hadc)
 {
-  uint32_t tickstart = 0;
-  __IO uint32_t wait_loop_index = 0;
+  uint32_t tickstart = 0U;
+  __IO uint32_t wait_loop_index = 0U;
   
   /* ADC enable and wait for ADC ready (in case of ADC is disabled or         */
   /* enabling phase not yet completed: flag ADC ready not yet set).           */
@@ -1910,8 +1945,8 @@ HAL_StatusTypeDef ADC_Enable(ADC_HandleTypeDef* hadc)
     
     /* Delay for ADC stabilization time */
     /* Compute number of CPU cycles to wait for */
-    wait_loop_index = (ADC_STAB_DELAY_US * (SystemCoreClock / 1000000));
-    while(wait_loop_index != 0)
+    wait_loop_index = (ADC_STAB_DELAY_US * (SystemCoreClock / 1000000U));
+    while(wait_loop_index != 0U)
     {
       wait_loop_index--;
     }
@@ -1951,7 +1986,7 @@ HAL_StatusTypeDef ADC_Enable(ADC_HandleTypeDef* hadc)
   */
 HAL_StatusTypeDef ADC_ConversionStop_Disable(ADC_HandleTypeDef* hadc)
 {
-  uint32_t tickstart = 0;
+  uint32_t tickstart = 0U;
   
   /* Verification if ADC is not already disabled */
   if (ADC_IS_ENABLE(hadc) != RESET)

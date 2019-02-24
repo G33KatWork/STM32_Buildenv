@@ -21,6 +21,7 @@ CCSOURCES = stm32f1xx_hal_adc.c \
 			stm32f1xx_hal_i2s.c \
 			stm32f1xx_hal_irda.c \
 			stm32f1xx_hal_iwdg.c \
+			stm32f1xx_hal_mmc.c \
 			stm32f1xx_hal_msp_template.c \
 			stm32f1xx_hal_nand.c \
 			stm32f1xx_hal_nor.c \
@@ -42,9 +43,24 @@ CCSOURCES = stm32f1xx_hal_adc.c \
 			stm32f1xx_hal_uart.c \
 			stm32f1xx_hal_usart.c \
 			stm32f1xx_hal_wwdg.c \
+			stm32f1xx_ll_adc.c \
+			stm32f1xx_ll_crc.c \
+			stm32f1xx_ll_dac.c \
+			stm32f1xx_ll_dma.c \
+			stm32f1xx_ll_exti.c \
 			stm32f1xx_ll_fsmc.c \
+			stm32f1xx_ll_gpio.c \
+			stm32f1xx_ll_i2c.c \
+			stm32f1xx_ll_pwr.c \
+			stm32f1xx_ll_rcc.c \
+			stm32f1xx_ll_rtc.c \
 			stm32f1xx_ll_sdmmc.c \
-			stm32f1xx_ll_usb.c
+			stm32f1xx_ll_spi.c \
+			stm32f1xx_ll_tim.c \
+			stm32f1xx_ll_usart.c \
+			stm32f1xx_ll_usb.c \
+			stm32f1xx_ll_utils.c \
+			Legacy/stm32f1xx_hal_can.c
 
 # List C++ source files here.
 CXXSOURCES =

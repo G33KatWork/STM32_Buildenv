@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f1xx_hal_dac.c
   * @author  MCD Application Team
-  * @version V1.0.1
-  * @date    31-July-2015
   * @brief   DAC HAL module driver.
   *         This file provides firmware functions to manage the following 
   *         functionalities of the Digital to Analog Converter (DAC) peripheral:
@@ -185,7 +183,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -337,6 +335,8 @@ HAL_StatusTypeDef HAL_DAC_DeInit(DAC_HandleTypeDef* hdac)
   */
 __weak void HAL_DAC_MspInit(DAC_HandleTypeDef* hdac)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hdac);
   /* NOTE : This function Should not be modified, when the callback is needed,
             the HAL_DAC_MspInit could be implemented in the user file
    */ 
@@ -350,6 +350,8 @@ __weak void HAL_DAC_MspInit(DAC_HandleTypeDef* hdac)
   */
 __weak void HAL_DAC_MspDeInit(DAC_HandleTypeDef* hdac)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hdac);
   /* NOTE : This function Should not be modified, when the callback is needed,
             the HAL_DAC_MspDeInit could be implemented in the user file
    */ 
@@ -467,7 +469,7 @@ HAL_StatusTypeDef HAL_DAC_Stop(DAC_HandleTypeDef* hdac, uint32_t Channel)
   *          This parameter can be one of the following values:
   *            @arg DAC_CHANNEL_1: DAC Channel1 selected
   *            @arg DAC_CHANNEL_2: DAC Channel2 selected
-  * @param  pData: The destination peripheral Buffer address.
+  * @param  pData: The Source memory Buffer address.
   * @param  Length: The length of data to be transferred from memory to DAC peripheral
   * @param  Alignment: Specifies the data alignment for DAC channel.
   *          This parameter can be one of the following values:
@@ -478,7 +480,7 @@ HAL_StatusTypeDef HAL_DAC_Stop(DAC_HandleTypeDef* hdac, uint32_t Channel)
   */
 __weak HAL_StatusTypeDef HAL_DAC_Start_DMA(DAC_HandleTypeDef* hdac, uint32_t Channel, uint32_t* pData, uint32_t Length, uint32_t Alignment)
 {
-  uint32_t tmpreg = 0;
+  uint32_t tmpreg = 0U;
     
   /* Check the parameters */
   assert_param(IS_DAC_CHANNEL(Channel));
@@ -667,6 +669,8 @@ uint32_t HAL_DAC_GetValue(DAC_HandleTypeDef* hdac, uint32_t Channel)
   */
 __weak void HAL_DAC_ConvCpltCallbackCh1(DAC_HandleTypeDef* hdac)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hdac);
   /* NOTE : This function Should not be modified, when the callback is needed,
             the HAL_DAC_ConvCpltCallbackCh1 could be implemented in the user file
    */
@@ -680,6 +684,8 @@ __weak void HAL_DAC_ConvCpltCallbackCh1(DAC_HandleTypeDef* hdac)
   */
 __weak void HAL_DAC_ConvHalfCpltCallbackCh1(DAC_HandleTypeDef* hdac)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hdac);
   /* NOTE : This function Should not be modified, when the callback is needed,
             the HAL_DAC_ConvHalfCpltCallbackCh1 could be implemented in the user file
    */
@@ -693,6 +699,8 @@ __weak void HAL_DAC_ConvHalfCpltCallbackCh1(DAC_HandleTypeDef* hdac)
   */
 __weak void HAL_DAC_ErrorCallbackCh1(DAC_HandleTypeDef *hdac)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hdac);
   /* NOTE : This function Should not be modified, when the callback is needed,
             the HAL_DAC_ErrorCallbackCh1 could be implemented in the user file
    */
@@ -730,7 +738,7 @@ __weak void HAL_DAC_ErrorCallbackCh1(DAC_HandleTypeDef *hdac)
   */
 HAL_StatusTypeDef HAL_DAC_ConfigChannel(DAC_HandleTypeDef* hdac, DAC_ChannelConfTypeDef* sConfig, uint32_t Channel)
 {
-  uint32_t tmpreg1 = 0;
+  uint32_t tmpreg1 = 0U;
 
   /* Check the DAC parameters */
   assert_param(IS_DAC_TRIGGER(sConfig->DAC_Trigger));
@@ -785,7 +793,7 @@ HAL_StatusTypeDef HAL_DAC_ConfigChannel(DAC_HandleTypeDef* hdac, DAC_ChannelConf
   */
 HAL_StatusTypeDef HAL_DAC_SetValue(DAC_HandleTypeDef* hdac, uint32_t Channel, uint32_t Alignment, uint32_t Data)
 {  
-  __IO uint32_t tmp = 0;
+  __IO uint32_t tmp = 0U;
   
   /* Check the parameters */
   assert_param(IS_DAC_CHANNEL(Channel));
